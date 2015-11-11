@@ -1,22 +1,44 @@
 function pascalTriangle () {}
 
-pascalTriangle.prototype.read = function (rowAndColumn) {
+pascalTriangle.prototype.triangle = function (maxRow) {
 
-  var row = rowAndColumn[0],
-      column = rowAndColumn[1];
+  var triangle = [],
+      row = '';
 
-  return pascalTriangle.prototype.factorial(row) / (pascalTriangle.prototype.factorial(row-column) * pascalTriangle.prototype.factorial(column));
+  for(var rowIndex = 0; rowIndex <= maxRow; rowIndex++) {
+    row = Array(maxRow + 1 - rowIndex).join(' ') + pascalTriangle.prototype.row(rowIndex)
+    if (rowIndex < maxRow) row += '\n'
+    triangle.push(row);
+  }
+
+  return triangle.join('');
 
 };
 
-pascalTriangle.prototype.factorial = function (num) {
+pascalTriangle.prototype.row = function (rowIndex) {
 
-  var self = this;
+  var row = [];
+
+  for(var columnIndex = 0; columnIndex <= rowIndex; columnIndex++) {
+    row.push(pascalTriangle.prototype.coefficient(rowIndex, columnIndex));
+  }
+
+  return row.join(' ');
+
+};
+
+pascalTriangle.prototype.coefficient = function (row, column) {
+
+  return factorial(row) / (factorial(row - column) * factorial(column));
+
+}
+
+function factorial (num) {
 
   if (num < 2) {
     return 1;
   } else {
-    return num * self.factorial(num-1);
+    return num * factorial(num-1);
   }
 
 };
